@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Contact Me</title>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo"><img src="./logo.png" alt="Hardik"></div>
+            <div class="list-items-nav">
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <!-- <li><a href="#about">About</a></li> -->
+                    <!-- <li><a href="#skill">Skill</a></li> -->
+                    <li><a href="./portfolio.html">Portfolio</a></li>
+                    <li><a href="./contact.html" class="text-s">Contact</a></li>
+
+                    <div class="close-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </ul>
+            </div>
+
+            <div class="mob-btn">
+                <div class="open-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <section id="main">
+        <div id="contact">
+            <div>
+
+                <h2 class="center">Contact <span class="text-s">Me!</span></h2>
+                <h1 class="center">Hardik Gupta</h1>
+                <p class="center text-s"><a href="mailto:hardikgupta1010@gmail.com">230265594@aston.ac.uk</a></p>
+                <p class="center">
+                    <em>SUN :230265594 </em>
+                </p>
+                <form id="form" method="post">
+                    <div>
+                        <div class="input-label">
+                            <input type="text" id="name" name="name" required />
+                            <label for="name">Name:</label>
+                        </div>
+
+                        <div class="input-label">
+                            <input type="date" id="date" name="date" required />
+                            <label for="date">Date:</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="input-label">
+                            <input type="email" id="email" name="email" required />
+                            <label for="email">Email:</label>
+                        </div>
+                        <div class="input-label">
+                            <input type="email" id="cemail" name="cemail" required />
+                            <label for="cemail">Confirm Email:</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="input-label">
+                            <input type="text" id="number" name="number" required />
+                            <label for="number">Phone Number</label>
+                        </div>
+
+                        <div class="input-label">
+                            <input type="text" name="emailsubject" id="emailsubject" required />
+                            <label for="emailsubject">Email Subject:</label>
+                        </div>
+                    </div>
+                    <div>
+                        <p>How you want to be contacted:</p>
+                        <div>
+                            <div class="contact-plane">
+                                <label style="position: initial; display: inline;" for="prefer1">Email:</label>
+                                <input style="display: inline;" type="radio" name="prefer" id="prefer1" value="email"
+                                    required />
+                            </div>
+
+                            <div class="contact-plane">
+                                <label style="position: initial;" for="prefer2">Call:</label>
+                                <input type="radio" name="prefer" id="prefer2" value="call" required />
+                            </div>
+
+                        </div>
+                    </div>
+                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Description"
+                        required></textarea>
+
+                    <button type="submit"><span class="sub-btn">Submit</span><span class="sub"></span></button>
+                </form>
+
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright &copy; 2024 by Hardik! All Right Reserved</p>
+        </footer>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var inputs = document.querySelectorAll('input');
+
+            inputs.forEach(function (input) {
+                input.addEventListener('focus', function () {
+                    this.previousElementSibling.style.top = '-10px';
+                });
+
+                input.addEventListener('blur', function () {
+                    if (this.value === '') {
+                        this.previousElementSibling.style.top = '0';
+                    }
+                });
+            });
+        });
+        document.getElementById('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            validateForm();
+        })
+        function validateForm() {
+            let email = document.getElementById('email').value
+            let cemail = document.getElementById('cemail').value
+            let name = document.getElementById('name').value
+            let date = document.getElementById('date').value
+            let number = document.getElementById('number').value
+            let emailsubject = document.getElementById('emailsubject').value
+            let prefer = document.querySelector('input[name="prefer"]:checked').value
+            let message = document.getElementById('message').value
+            if (!checkDates(date)) {
+                alert("Sorry! the date entered should be atleast one day in the future")
+            }
+            else if (!checkEmails(email, cemail)) {
+                alert("Email and confirm email does not match")
+            } else {
+                data = `
+                your given data is :
+                email:${email}
+                name:${name}
+                date:${date}
+                number:${number}
+                emailsubject:${emailsubject}
+                prefer:${prefer}
+                message:${message}
+                -------------------
+                will be sent to : hardikgupta1010@gmail.com
+                `
+                confirm(data);
+                document.getElementById('form').reset();
+            }
+        }
+        function checkDates(inputDate) {
+            // Parse the input date
+            console.log(inputDate);
+            const [year, month, day] = inputDate.split('-').map(Number);
+            const inputDateTime = new Date(year, month - 1, day);
+
+            // Calculate tomorrow's date
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() );
+
+            // Compare input date with tomorrow
+            console.log(inputDateTime, tomorrow);
+            return inputDateTime > tomorrow;
+        }
+        function checkEmails(email, cemail) {
+            return email == cemail;
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>
