@@ -2,7 +2,7 @@ from openai import OpenAI
  
 
 client = OpenAI(
-  api_key="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",
+  api_key="",
 )
 command= '''
 [12:05, 11/10/2024] Hardik: No sorry I was talking about the meeting
